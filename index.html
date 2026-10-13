@@ -1,6 +1,6 @@
 <!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>notes</title><meta name="robots" content="noindex">
 <style>body{background:#1a0f1f;color:#ffd6ec;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}form{text-align:center}input,button{font:inherit;padding:10px;margin:6px;border-radius:6px;border:1px solid #ff5fb0;background:#2a1530;color:#fff}#e{color:#ff6b8a}</style></head>
-<body><form id="f"><div>🔒 Private</div><input id="p" type="password" placeholder="password" autofocus><br><label><input type="checkbox" id="r" checked> remember me</label><br><button>Unlock</button><div id="e"></div></form>
+<body><form id="f"><div>🔒 Private</div><input id="p" type="password" autocomplete="current-password" placeholder="password" autofocus><br><label><input type="checkbox" id="r" checked> remember me</label><br><button>Unlock</button><div id="e"></div></form>
 <script>
 (function(){
 const SALT='4679f31964ee821f5f3efbcd181fa9a0',RAW='https://raw.githubusercontent.com/x2033/static-notes/',API='https://api.github.com/repos/x2033/static-notes/commits/data',KS='sn_key';
@@ -10,7 +10,7 @@ const ofetch=window.fetch.bind(window);let KEY=null;
 async function derive(pw){const b=await crypto.subtle.importKey('raw',new TextEncoder().encode(pw),'PBKDF2',false,['deriveKey']);
  return crypto.subtle.deriveKey({name:'PBKDF2',salt:hx(SALT),iterations:600000,hash:'SHA-256'},b,{name:'AES-GCM',length:256},true,['decrypt'])}
 async function imp(raw){return crypto.subtle.importKey('raw',Uint8Array.from(atob(raw),c=>c.charCodeAt(0)),'AES-GCM',false,['decrypt'])}
-let SHA=localStorage.getItem('sn_sha')||'data',SHAT=0,SP=null;async function sha(){if(Date.now()-SHAT<65000)return SHA;if(SP)return SP;SP=(async()=>{try{const r=await ofetch(API+'?t='+Date.now(),{cache:'no-store',headers:{Accept:'application/vnd.github.sha'}});if(r.ok){SHA=(await r.text()).trim();SHAT=Date.now();try{localStorage.setItem('sn_sha',SHA)}catch(_){}}else SHAT=Date.now()-35000}catch(e){}SP=null;return SHA})();return SP}
+let SHA=localStorage.getItem('sn_sha')||'data',SHAT=0,SP=null;async function sha(){if(Date.now()-SHAT<65000)return SHA;if(SP)return SP;SP=(async()=>{try{const r=await ofetch(API+'?t='+Date.now(),{cache:'no-store',headers:{Accept:'application/vnd.github.sha'},signal:AbortSignal.timeout?AbortSignal.timeout(10000):undefined});if(r.ok){SHA=(await r.text()).trim();SHAT=Date.now();try{localStorage.setItem('sn_sha',SHA)}catch(_){}}else SHAT=Date.now()-35000}catch(e){SHAT=Date.now()-35000}SP=null;return SHA})();return SP}
 async function getEnc(name){const r=await ofetch(RAW+(await sha())+'/'+name,{cache:'force-cache'});if(!r.ok)throw r.status;
  const b=Uint8Array.from(atob((await r.text()).trim()),c=>c.charCodeAt(0));
  return new TextDecoder().decode(await crypto.subtle.decrypt({name:'AES-GCM',iv:b.slice(0,12)},KEY,b.slice(12)))}
