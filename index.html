@@ -1,6 +1,52 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>notes</title><meta name="robots" content="noindex">
-<style>body{background:#1a0f1f;color:#ffd6ec;font-family:monospace;display:flex;align-items:center;justify-content:center;height:100vh;margin:0}form{text-align:center}input,button{font:inherit;padding:10px;margin:6px;border-radius:6px;border:1px solid #ff5fb0;background:#2a1530;color:#fff}#e{color:#ff6b8a}</style></head>
-<body><form id="f"><div>🔒 Private</div><input id="p" type="password" autocomplete="current-password" placeholder="password" autofocus><br><label><input type="checkbox" id="r" checked> remember me</label><br><button>Unlock</button><div id="e"></div></form>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>A.T.L.A.S</title><meta name="robots" content="noindex"><meta name="theme-color" content="#07090c">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#07090c;color:#e6edf3;font-family:Inter,system-ui,sans-serif}
+body{display:flex;align-items:center;justify-content:center;min-height:100vh;min-height:100dvh;padding:24px;overflow:hidden}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+.grid{animation:drift 40s linear infinite}@keyframes drift{to{transform:translate(48px,48px)}}
+.scan{animation:scan 7s ease-in-out infinite}@keyframes scan{0%{transform:translateY(-10%)}100%{transform:translateY(110%)}}
+@media (prefers-reduced-motion:reduce){.grid,.scan{animation:none}}
+form{position:relative;z-index:1;width:100%;max-width:400px;background:linear-gradient(180deg,#141a21,#0e1318);border:1px solid #232c36;border-radius:16px;padding:32px 28px 26px;box-shadow:0 0 0 1px rgba(34,211,238,.05),0 20px 60px rgba(0,0,0,.6),0 0 40px rgba(34,211,238,.06)}
+.brand{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.wm{font-family:'JetBrains Mono',monospace;font-weight:600;font-size:26px;letter-spacing:.32em;color:#e6edf3;text-shadow:0 0 18px rgba(34,211,238,.35)}
+.wm b{color:#22d3ee;font-weight:600}
+.sub{font-size:13px;color:#8b98a5;margin:0 0 18px}
+.badge{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;color:#3ddc97;background:rgba(61,220,151,.08);border:1px solid rgba(61,220,151,.3);border-radius:999px;padding:5px 11px;margin-bottom:22px}
+.badge i{width:7px;height:7px;border-radius:50%;background:#3ddc97;box-shadow:0 0 8px #3ddc97;animation:pulse 2s ease-in-out infinite}@keyframes pulse{50%{opacity:.35}}
+label.l{display:block;font-size:12px;color:#8b98a5;margin-bottom:8px;letter-spacing:.04em}
+#p{width:100%;font:500 16px 'JetBrains Mono',monospace;color:#e6edf3;background:#0a0e12;border:1px solid #2a3440;border-radius:10px;padding:13px 14px;outline:none;transition:border .15s,box-shadow .15s}
+#p:focus{border-color:#22d3ee;box-shadow:0 0 0 3px rgba(34,211,238,.15)}
+.tg{display:flex;align-items:center;justify-content:space-between;margin:16px 0 20px;font-size:14px;color:#c4cdd5;cursor:pointer;user-select:none}
+.tg input{position:absolute;opacity:0;width:0;height:0}
+.sw{width:40px;height:22px;border-radius:999px;background:#232c36;position:relative;transition:background .2s;flex:none}
+.sw:after{content:'';position:absolute;top:3px;left:3px;width:16px;height:16px;border-radius:50%;background:#8b98a5;transition:transform .2s,background .2s}
+.tg input:checked+.sw{background:rgba(59,130,246,.45)}.tg input:checked+.sw:after{transform:translateX(18px);background:#e6edf3}
+.tg input:focus-visible+.sw{outline:2px solid #22d3ee;outline-offset:2px}
+button{width:100%;font:600 15px Inter,sans-serif;letter-spacing:.04em;color:#04161a;background:linear-gradient(180deg,#3ee0f5,#22d3ee);border:0;border-radius:10px;padding:14px;cursor:pointer;box-shadow:0 0 24px rgba(34,211,238,.25);transition:filter .15s,transform .05s}
+button:hover{filter:brightness(1.08)}button:active{transform:translateY(1px)}
+#e{min-height:20px;margin-top:14px;font-size:13px;color:#f87171;text-align:center}
+.ft{margin-top:18px;padding-top:14px;border-top:1px solid #1c242d;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5b6773;letter-spacing:.08em;display:flex;justify-content:space-between}
+@media (max-width:420px){form{padding:26px 20px 22px;border-radius:14px}.wm{font-size:22px}}
+</style></head><body>
+<svg id="bg" preserveAspectRatio="xMidYMid slice" viewBox="0 0 1440 900" aria-hidden="true"><defs>
+<pattern id="g" width="48" height="48" patternUnits="userSpaceOnUse"><path d="M48 0H0V48" fill="none" stroke="#22d3ee" stroke-opacity=".07"/></pattern>
+<radialGradient id="v" cx="50%" cy="45%" r="65%"><stop offset="0" stop-color="#07090c" stop-opacity="0"/><stop offset="1" stop-color="#07090c"/></radialGradient>
+<linearGradient id="s" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#22d3ee" stop-opacity="0"/><stop offset=".5" stop-color="#22d3ee" stop-opacity=".09"/><stop offset="1" stop-color="#22d3ee" stop-opacity="0"/></linearGradient></defs>
+<g class="grid"><rect x="-96" y="-96" width="1632" height="1092" fill="url(#g)"/></g>
+<rect class="scan" x="0" y="0" width="1440" height="120" fill="url(#s)"/>
+<rect width="1440" height="900" fill="url(#v)"/></svg>
+<form id="f" autocomplete="on">
+<div class="brand"><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M15 3 27 26H3Z" fill="none" stroke="#22d3ee" stroke-width="1.6"/><path d="M9.5 18h11" stroke="#3b82f6" stroke-width="1.6"/><circle cx="15" cy="13" r="1.6" fill="#3ddc97"/></svg><div class="wm">A<b>.</b>T<b>.</b>L<b>.</b>A<b>.</b>S</div></div>
+<p class="sub">Trading desk · secure access</p>
+<div class="badge"><i></i>PRACTICE · PAPER MONEY</div>
+<label class="l" for="p">Password</label>
+<input id="p" type="password" autocomplete="current-password" placeholder="Enter your password" autofocus>
+<label class="tg" for="r"><span>Remember on this device</span><input type="checkbox" id="r" checked><span class="sw"></span></label>
+<button type="submit">Unlock dashboard</button>
+<div id="e" role="alert"></div>
+<div class="ft"><span>AES-256 · ENCRYPTED</span><span>LIVE</span></div>
+</form>
 <script>
 (function(){
 const SALT='4679f31964ee821f5f3efbcd181fa9a0',RAW='https://raw.githubusercontent.com/x2033/static-notes/',API='https://api.github.com/repos/x2033/static-notes/commits/data',KS='sn_key';
@@ -22,9 +68,9 @@ async function open_(){const h=await getEnc('d.enc');document.open();document.wr
 async function tryKey(raw){KEY=await imp(raw);await open_()}
 const saved=localStorage.getItem(KS)||sessionStorage.getItem(KS);
 if(saved)tryKey(saved).catch(()=>{localStorage.removeItem(KS);sessionStorage.removeItem(KS);KEY=null});
-document.getElementById('f').onsubmit=async ev=>{ev.preventDefault();const e=document.getElementById('e');e.textContent='unlocking…';
+document.getElementById('f').onsubmit=async ev=>{ev.preventDefault();const e=document.getElementById('e');e.textContent='Unlocking…';
  try{const k=await derive(document.getElementById('p').value);const raw=btoa(String.fromCharCode(...new Uint8Array(await crypto.subtle.exportKey('raw',k))));
   const rem=document.getElementById('r').checked;KEY=k;(rem?localStorage:sessionStorage).setItem(KS,raw);await open_();}
- catch(x){KEY=null;localStorage.removeItem(KS);sessionStorage.removeItem(KS);e.textContent=x===404||typeof x==='number'?'data unavailable ('+x+')':'wrong password'}};
+ catch(x){KEY=null;localStorage.removeItem(KS);sessionStorage.removeItem(KS);e.textContent=x===404||typeof x==='number'?'The desk data is unavailable right now (error '+x+'). Please try again in a minute.':'That password didn\'t work. Please check it and try again.'}};
 })();
 </script></body></html>
